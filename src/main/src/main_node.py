@@ -36,13 +36,14 @@ def receiveMessageCommand(data):
     print data
 
 def executeMessageFromBrain(data):
+    print "ENVIOU"
     pub.publish(data)
 
 def flow_control(zumy_name,base_ar_tag,zumy_ar_tag):
 	#rospy.init_node("zumy_teleop_bridge", anonymous=True)
     rospy.Subscriber("/main/main_node_drive/", Twist, receiveMessageFromTeleop)
     rospy.Subscriber("/main/state_switch/",String,receiveMessageCommand)
-    rospy.Subscriber("/main/message_from_brain/",Twist,receiveMessageCommand)
+    rospy.Subscriber("/main/message_from_brain/",Twist,executeMessageFromBrain)
 
 if __name__=='__main__':
     rospy.init_node('main_node')

@@ -10,11 +10,14 @@ import simple_exe
 import action
 import offline_deterministic_know_planner
 import astar_recalc_exe
+import zumy_interface
 
 F, B, L, R = action.FOWARD, action.BACKWARD, action.LEFT, action.RIGHT
 
 if __name__ == '__main__':
-	img = images.readImage("maze.jpg")
+
+	zumy_interface.activateInterface()
+	img = images.readImage("easy_map.jpg")
 	MAZE_SIZE_Y = 30
 	MAZE_SIZE_X = 30
 
@@ -47,7 +50,7 @@ if __name__ == '__main__':
 	#actions = offline_deterministic_know_planner.solveAStar(my_game)
 	#simple_exe.doActions(my_game,actions,0.5,True)
 
-	astar_recalc_exe.run(my_game,0.01,True)
+	astar_recalc_exe.run(my_game,1,False)
 
 	game_image = my_game.toImage()
 	images.plotImage(game_image,True)

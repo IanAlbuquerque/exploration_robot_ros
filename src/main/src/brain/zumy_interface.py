@@ -13,7 +13,7 @@ def doAction(game, action_taken):
 	if action_taken == action.FOWARD:
 
 		twist = Twist()
-		twist.linear.x = 1
+		twist.linear.x = 0.5
 		twist.linear.y = 0
 		twist.linear.z = 0
 		twist.angular.x = 0
@@ -37,7 +37,7 @@ def doAction(game, action_taken):
 	elif action_taken == action.BACKWARD:
 
 		twist = Twist()
-		twist.linear.x = -1
+		twist.linear.x = -0.5
 		twist.linear.y = 0
 		twist.linear.z = 0
 		twist.angular.x = 0
@@ -104,3 +104,4 @@ def readSensors(game):
 
 if __name__=='__main__':
 	activateInterface()
+	rospy.spin()

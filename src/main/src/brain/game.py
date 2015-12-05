@@ -94,18 +94,18 @@ class Game:
 			return False
 
 	def doAction(self,action_taken):
-		# if not isinstance(self.hero,hero.Hero):
-		# 	raise ValueError("Invalid hero state.")
-		# if action_taken not in action.ACTIONS:
-		# 	raise ValueError("Invalid action.")
+		if not isinstance(self.hero,hero.Hero):
+			raise ValueError("Invalid hero state.")
+		if action_taken not in action.ACTIONS:
+			raise ValueError("Invalid action.")
 
-		# hero_next_state = self.hero.copy()
-		# hero_next_state.doAction(action_taken)
+		hero_next_state = self.hero.copy()
+		hero_next_state.doAction(action_taken)
 
-		# hero_next_position = hero_next_state.getPosition()
+		hero_next_position = hero_next_state.getPosition()
 
-		# if not self.walls.exists(hero_next_position):
-		# 	self.hero = hero_next_state
+		if not self.walls.exists(hero_next_position):
+			self.hero = hero_next_state
 		zumy_interface.doAction(self,action_taken)
 
 	def readSensors(self):
