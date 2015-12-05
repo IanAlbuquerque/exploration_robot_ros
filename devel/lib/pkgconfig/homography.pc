@@ -1,0 +1,8 @@
+prefix=/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel
+
+Name: homography
+Description: Description of homography
+Version: 0.0.0
+Cflags: -I/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/include
+Libs: -L/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib 
+Requires: 

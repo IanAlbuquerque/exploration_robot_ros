@@ -5,6 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
+SUBDIRS(homography)
 SUBDIRS(main)
 SUBDIRS(man_joy_override)
 SUBDIRS(odroid_machine)

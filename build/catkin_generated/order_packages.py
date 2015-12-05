@@ -2,4 +2,4 @@
 source_root_dir = "/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src"
 whitelisted_packages = "".split(';') if "" != "" else []
 blacklisted_packages = "".split(';') if "" != "" else []
-underlay_workspaces = "/opt/ros/indigo".split(';') if "/opt/ros/indigo" != "" else []
+underlay_workspaces = "/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel;/opt/ros/indigo".split(';') if "/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel;/opt/ros/indigo" != "" else []
