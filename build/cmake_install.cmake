@@ -121,6 +121,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/main/cmake_install.cmake")
   INCLUDE("/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/man_joy_override/cmake_install.cmake")
   INCLUDE("/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/odroid_machine/cmake_install.cmake")
+  INCLUDE("/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/ar_track_alvar/cmake_install.cmake")
   INCLUDE("/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/zumy_teleop/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)

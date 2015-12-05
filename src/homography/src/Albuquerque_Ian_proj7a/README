@@ -1,0 +1,110 @@
+================================================================================
+
+ University of California, Berkeley
+ CS194-26 (CS294-26): Computational Photography
+
+================================================================================
+
+ Project 7 - Part A: "Image Warping and Mosaicing - Homographies"
+
+ Student: Ian Albuquerque Raymundo da Silva
+ Email: ian.albuquerque@berkeley.edu
+
+================================================================================
+
+ Special thanks to Alexei Alyosha Efros, Rachel Albert and Weilun Sun for help
+ during lectures, office hours and questions on Piazza.
+
+================================================================================
+
+
+================================================================================
+ Files and Folders:
+================================================================================
+
+ 	main.py
+ 		Runs the interactive application for merging the images into a panorama.
+ 		Imports imageio.py, pointselecter.py, transforms.py. Reads the inputs
+ 		from the corresponding folders in "inputs".
+
+ 	imageio.py
+ 		Python code for reading images and converting them to floats.
+
+ 	pointselecter.py
+ 		Python code for the interface that helps the user to select the input
+ 		points for the algorithms to work.
+
+ 	transforms.py
+ 		Python code for computing transformations given correspondence points.
+
+ 	/inputs
+ 		Contains the input images for the panorama mosaicing.
+
+ 		/360
+ 			Input images for the 360 degrees cylindrical panorama algorithm.
+
+ 			0.jpg
+ 			1.jpg
+ 			2.jpg
+ 			3.jpg
+ 			4.jpg
+ 			5.jpg
+ 			6.jpg
+
+ 		/cylindrical
+ 			Input images for the cylindrical panorama algorithm.
+
+ 			0.jpg
+ 			1.jpg
+ 			2.jpg
+
+ 		/planar
+ 			Input images for the planar panorama algorithm.
+
+ 			0.jpg
+ 			1.jpg
+ 			2.jpg
+
+ 		/rectification
+ 			Input images for the rectification algorithm.
+ 			
+ 			times_square.jpg
+
+================================================================================
+
+
+================================================================================
+ Running the Application:
+================================================================================
+
+	Run the application (main.py).
+
+	It should load all the input images and also calculate their gaussian
+	pyramids (this is the preprocessing part). This is expected to take
+	some time and use a lot of memory.
+
+	When the image is displayed, you can:
+
+		LEFT MOUSE CLICK:
+			Refocuses the image on the point clicked
+
+		SCROLL THE MOUSE WHEEL UP:
+			Increases the aperture radius/size
+
+		SCROLL THE MOUSE WHEEL DOWN:
+			Decreases the aperture radius/size
+
+	Everytime you take an action, it takes some time to computer everything.
+	During that time, no new actions can be made. However, it should not
+	take much time.
+
+	The thing that takes the most time is increasing the aperture radius too much.
+
+	Whenever the image finishes loading, you can just repeat this process again.
+
+	NOTE:
+		I have experienced Windows saying that this program does not respond
+		when it is calculating images with high aperture radius.
+		Well, just wait for the computation to complete. It is not stuck.
+
+================================================================================

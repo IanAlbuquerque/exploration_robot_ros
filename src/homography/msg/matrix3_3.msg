@@ -1,0 +1,9 @@
+float64 e00
+float64 e01
+float64 e02
+float64 e10
+float64 e11
+float64 e12
+float64 e20
+float64 e21
+float64 e22

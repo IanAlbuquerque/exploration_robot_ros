@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>lab4_cam</name>
+  <name>homography</name>
   <version>0.0.0</version>
   <description>The lab4_cam package</description>
 

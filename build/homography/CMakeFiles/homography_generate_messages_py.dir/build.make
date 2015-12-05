@@ -45,25 +45,43 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build
 # Include the progress variables for this target.
 include homography/CMakeFiles/homography_generate_messages_py.dir/progress.make
 
+homography/CMakeFiles/homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/_matrix3_3.py
 homography/CMakeFiles/homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py
+homography/CMakeFiles/homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/__init__.py
 homography/CMakeFiles/homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/__init__.py
+
+/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/_matrix3_3.py: /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
+/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/_matrix3_3.py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/msg/matrix3_3.msg
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python from MSG homography/matrix3_3"
+	cd /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/homography && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/msg/matrix3_3.msg -Ihomography:/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -p homography -o /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg
 
 /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py: /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py
 /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/srv/ImageSrv.srv
 /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py: /opt/ros/indigo/share/std_msgs/cmake/../msg/Header.msg
 /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py: /opt/ros/indigo/share/sensor_msgs/cmake/../msg/Image.msg
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python code from SRV homography/ImageSrv"
-	cd /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/homography && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/srv/ImageSrv.srv -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -p homography -o /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv
+	cd /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/homography && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/srv/ImageSrv.srv -Ihomography:/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/msg -Isensor_msgs:/opt/ros/indigo/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/indigo/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/indigo/share/std_msgs/cmake/../msg -p homography -o /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv
+
+/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/__init__.py: /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
+/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/__init__.py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/_matrix3_3.py
+/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/__init__.py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python msg __init__.py for homography"
+	cd /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/homography && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg --initpy
 
 /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/__init__.py: /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
+/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/__init__.py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/_matrix3_3.py
 /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/__init__.py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python srv __init__.py for homography"
 	cd /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/build/homography && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/indigo/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv --initpy
 
 homography_generate_messages_py: homography/CMakeFiles/homography_generate_messages_py
+homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/_matrix3_3.py
 homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/_ImageSrv.py
+homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/msg/__init__.py
 homography_generate_messages_py: /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib/python2.7/dist-packages/homography/srv/__init__.py
 homography_generate_messages_py: homography/CMakeFiles/homography_generate_messages_py.dir/build.make
 .PHONY : homography_generate_messages_py

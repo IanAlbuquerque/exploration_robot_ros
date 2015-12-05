@@ -6,6 +6,8 @@ import cv2, time, sys
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 from numpy.linalg import *
+import transforms
+from homography.msg import matrix3_3
 
 
 # Nominal length of a tile side
@@ -47,6 +49,8 @@ if __name__ == '__main__':
   
   # Initializes the image processing node
   rospy.init_node('image_processing_node')
+
+  matrix_pub = rospy.Publisher("/main/homography_matrix/", matrix3_3 , queue_size = 1)
   
   # Creates a function used to call the 
   # image capture service: ImageSrv is the service type
@@ -59,7 +63,7 @@ if __name__ == '__main__':
   # list 'points'
   def on_mouse_click(event,x,y,flag,param):
     if(event == cv2.EVENT_LBUTTONUP):
-      point = (x,y)
+      point = (x,y) # (x,y)
       print "Point Captured: " + str(point)
       points.append(point)
 
@@ -86,6 +90,9 @@ if __name__ == '__main__':
 
       # Tell OpenCV that it should call 'on_mouse_click' when the user
       # clicks the window. This will add clicked points to our list
+
+      print "POINTS ORDER: TOP LEFT, TOP RIGHT, BOT RIGHT, BOT LEFT"
+
       cv2.setMouseCallback("CV Image", on_mouse_click, param=1)
 
       # Zero out list each time we have a new image
@@ -103,12 +110,34 @@ if __name__ == '__main__':
       uv = np.array(points).T
 
 # === YOUR CODE HERE ===========================================================
-      
+
+      matrix_msg = matrix3_3()
+
       # This is placeholder code that will draw a 4 by 3 grid in the corner of
       # the image
       H = np.eye(3)
       nx = 4
       ny = 3
+
+      WIDTH_POINTS = nx*TILE_LENGTH
+      HEIGHT_POINTS = ny*TILE_LENGTH
+
+      points_source = points
+      points_target = [(0,0),(WIDTH_POINTS,0),(WIDTH_POINTS,HEIGHT_POINTS),(0,HEIGHT_POINTS)]
+
+      H = np.array(transforms.computeHomography(points_target,points_source))
+
+      matrix_msg.e00 = H[0,0]
+      matrix_msg.e01 = H[0,1]
+      matrix_msg.e02 = H[0,2]
+      matrix_msg.e10 = H[1,0]
+      matrix_msg.e11 = H[1,1]
+      matrix_msg.e12 = H[1,2]
+      matrix_msg.e20 = H[2,0]
+      matrix_msg.e21 = H[2,1]
+      matrix_msg.e22 = H[2,2]
+
+      matrix_pub.publish(matrix_msg)
 
 # ==============================================================================
       
