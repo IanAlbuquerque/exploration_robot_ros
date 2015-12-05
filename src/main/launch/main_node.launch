@@ -1,0 +1,17 @@
+<launch>
+
+	<arg name="zumy_name" />
+	<arg name="base_ar" />
+	<arg name="zumy_ar" />
+
+
+
+	<node name="teleop" pkg="turtlesim" type="turtle_teleop_key" output="screen" respawn="false" />
+
+	<node name="zumy_teleop" pkg="zumy_teleop" type="zumy_teleop_bridge.py" output="screen" respawn="false" />
+
+
+	<node name="main_node" pkg="main" type="main_node.py" output="screen" respawn="false" args="$(arg zumy_name) $(arg base_ar) $(arg zumy_ar)"/>
+	  
+
+</launch>
