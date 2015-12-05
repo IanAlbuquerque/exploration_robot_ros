@@ -1,0 +1,4 @@
+
+source $(pwd)/scripts/set_env.sh
+echo "Launching main node"
+roslaunch main main_node.launch zumy_name:=$zumyXY base_ar:=$base_ar zumy_ar:=$zumy_ar

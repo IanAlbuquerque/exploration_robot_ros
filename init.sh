@@ -14,3 +14,7 @@
 # roslaunch odroid_machine remote_zumy.launch mname:=$zumyXY
 #roslaunch main main_node.launch zumy_name:=$zumyXY base_ar:=1 zumy_ar:=2
 ###roslaunch zumy_teleop zumy_teleop.launch mname:=zumyXY
+
+gnome-terminal --title=odroid -e scripts/odroid.sh
+sleep 6s
+gnome-terminal --title=main_node -e scripts/main_node.sh

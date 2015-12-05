@@ -1,5 +1,8 @@
-
 export zumyXY='zumy1d'
+export base_ar=1
+export zumy_ar=2
+
+
 
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/scratch/shared:~/final_proj
 
