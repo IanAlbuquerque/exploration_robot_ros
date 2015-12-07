@@ -5,16 +5,21 @@ import rospy
 import vector
 from std_msgs.msg import Int32MultiArray
 from geometry_msgs.msg import Twist
+import math
 
 action_publisher = None
 sensorNorth = False
 sensorEast = False
 sensorSouth = False
 sensorWest = False
-zumy_pos_x = 0
-zumy_pos_y = 0
-zumy_angle = 0
+zumy_pos_x = None
+zumy_pos_y = None
+zumy_angle = None
 rate = None
+
+LINEAR = 0.23
+ROT = 0.35
+ANGLE_TOLERANCE = 8
 
 def doAction(game, action_taken):
 
@@ -22,10 +27,10 @@ def doAction(game, action_taken):
 	global zumy_pos_y
 	global zumy_angle
 	global rate
+	global LINEAR
+	global ROT
+	global ANGLE_TOLERANCE
 
-	LINEAR = 0.12
-	ROT = 0.3
-	ANGLE_TOLERANCE = 5
 	twist = Twist()
 
 	initial_angle = zumy_angle
@@ -58,8 +63,9 @@ def doAction(game, action_taken):
 
 		twist.angular.z = -ROT
 
-		while(((initial_angle + 90)%360 - (zumy_angle)%360)%360 > ANGLE_TOLERANCE):
+		while(angleDif((initial_angle+90)%360,zumy_angle) > ANGLE_TOLERANCE):
 			print "r"
+			print zumy_angle
 			action_publisher.publish(twist)
 			rate.sleep()
 	
@@ -87,8 +93,9 @@ def doAction(game, action_taken):
 		# if not game.walls.exists(hero_next_position):
 		# 	game.hero = hero_next_state
 		twist.angular.z = ROT
-		while(((initial_angle - 90)%360 - (zumy_angle)%360)%360 > ANGLE_TOLERANCE):
+		while(angleDif((initial_angle-90)%360,zumy_angle)>ANGLE_TOLERANCE):
 			print "l"
+			print zumy_angle
 			action_publisher.publish(twist)
 			rate.sleep()
 
@@ -139,7 +146,63 @@ def readSensors(game):
 		sensor_readings[direct] = readSensor(game,direct)
 	return sensor_readings
 
+def angleDif(a,b):
+	if a < 0:
+		a += 360
+	if b < 0:
+		b += 360
+	angle = int(math.fabs(a-b))
+	return min([360-angle,angle])
+
+def fixDirection(game):
+	global LINEAR
+	global ROT
+	global ANGLE_TOLERANCE
+	global zumy_angle
+	global rate
+
+	twist = Twist()
+	initial_angle = zumy_angle
+
+	desired_direction = game.hero.getDirection()
+	if desired_direction == direction.NORTH:
+		desired_angle = 0
+	if desired_direction == direction.EAST:
+		desired_angle = 90
+	if desired_direction == direction.SOUTH:
+		desired_angle = 180
+	if desired_direction == direction.WEST:
+		desired_angle = 270
+
+	if angleDif(desired_angle,initial_angle) < ANGLE_TOLERANCE:
+		return
+
+	initial_dif = angleDif(desired_angle,initial_angle)
+	twist.angular.z = -ROT/10.0
+
+	for i in xrange(20):
+		print "*fixing direction from " + str(zumy_angle) + "to" + str(desired_angle)
+		print angleDif(desired_angle,zumy_angle)
+		action_publisher.publish(twist)
+		rate.sleep()
+		if (angleDif(desired_angle,zumy_angle) < ANGLE_TOLERANCE):
+			return
+
+	after_dif = angleDif(desired_angle,zumy_angle)
+
+	if after_dif < initial_dif:
+		twist.angular.z = -ROT
+	else:
+		twist.angular.z = ROT
+
+	while (angleDif(desired_angle,zumy_angle) > ANGLE_TOLERANCE):
+		print "fixing direction from " + str(zumy_angle) + "to" + str(desired_angle)
+		print angleDif(desired_angle,zumy_angle)
+		action_publisher.publish(twist)
+		rate.sleep()
+
 def getZumyPositionCamera(game):
+	global rate
 	# PROBABILITY_TO_GET_DIFFERENT_READING = 0.25
 	# if random.random() < PROBABILITY_TO_GET_DIFFERENT_READING:
 	# 	candidate_positions = []
@@ -153,10 +216,18 @@ def getZumyPositionCamera(game):
 	# 		return game.getHero().getPosition()
 	# else:
 	# 	return game.getHero().getPosition()
+
+	while zumy_pos_x == None or zumy_pos_y == None:
+		rate.sleep()
+
 	return vector.Vector((zumy_pos_x,zumy_pos_y))
 
 def getZumyDirectionCamera(game):
-	if zumy_angle > (360 - 45) and zumy_angle < (0 + 45):
+	global rate
+	while zumy_angle == None:
+		rate.sleep()
+
+	if zumy_angle > (360 - 45) or zumy_angle < (0 + 45):
 		return direction.NORTH
 	elif zumy_angle > (90 - 45) and zumy_angle < (90 + 45):
 		return direction.EAST
@@ -188,7 +259,7 @@ def getCamData(data):
 def setUp():
 	global action_publisher
 	global rate
-	rate = rospy.Rate(10)
+	rate = rospy.Rate(3)
 	action_publisher = rospy.Publisher("/brain/action_message_from_brain/", Twist, queue_size = 1)
 	rospy.Subscriber("/brain/sensor_data_to_brain/",Int32MultiArray,getSensorData)
 	rospy.Subscriber("/brain/cam_data_to_brain/",Int32MultiArray,getCamData)

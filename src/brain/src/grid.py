@@ -52,7 +52,11 @@ class Grid:
 		return self.grid
 
 	def exists(self,vector):
-		return self.grid[vector.y,vector.x] == self.EXIST
+		try:
+			answer = self.grid[vector.y,vector.x] == self.EXIST
+		except IndexError:
+			answer = True
+		return answer
 
 	def toList(self,check_for_existance=True):
 		if check_for_existance:
@@ -75,7 +79,10 @@ class Grid:
 		else:
 			value_add = self.NOT_EXIST
 
-		self.grid[position.y,position.x] = value_add
+		try:
+			self.grid[position.y,position.x] = value_add
+		except IndexError:
+			return
 
 	def copy(self):
 		copy_grid = Grid(self.shape,image=None)

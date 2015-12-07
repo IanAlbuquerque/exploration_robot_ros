@@ -111,6 +111,6 @@ def solveAStar(game_to_solve):
 		actions_possible = action.ACTIONS
 		for act in actions_possible:
 			next_state = game_to_solve.transitionModel(heap_element[HEAP_STATE], act)   
-			heapq.heappush(heap, (heap_element[0] + ACTIONS_COST + heuristic(game_to_solve,next_state) - heuristic(game_to_solve,heap_element[HEAP_STATE]), next_state, act, heap_element[HEAP_STATE]))
+			heapq.heappush(heap, (heap_element[0] + game_to_solve.costAction(heap_element[HEAP_STATE],act) + heuristic(game_to_solve,next_state) - heuristic(game_to_solve,heap_element[HEAP_STATE]), next_state, act, heap_element[HEAP_STATE]))
 
 

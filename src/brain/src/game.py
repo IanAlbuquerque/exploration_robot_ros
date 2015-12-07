@@ -172,12 +172,18 @@ class Game:
 		for direc in true_readings:
 			position_to_ack = hero_position + direction.toVector(direc)
 			self.known_cells.setValue(position_to_ack,True)
+
 			if not self.walls.exists(position_to_ack) and not self.known_maze.exists(position_to_ack):
 				self.known_maze.setValue(position_to_ack,true_readings[direc])
 				self.walls.setValue(position_to_ack,true_readings[direc])
 			else:
 				self.known_maze.setValue(position_to_ack,True)
 				self.walls.setValue(position_to_ack,True)
+
+			# self.known_maze.setValue(position_to_ack,true_readings[direc])
+			# self.walls.setValue(position_to_ack,true_readings[direc])
+		self.known_maze.setValue(hero_position,False)
+		self.walls.setValue(hero_position,False)
 
 	def setHeroPosition(self,new_hero_position):
 		if not isinstance(new_hero_position,vector.Vector):
@@ -188,6 +194,24 @@ class Game:
 	def setHeroDirection(self,new_hero_direction):
 		self.hero.direction = new_hero_direction
 
+	def costAction(self,hero_state,action_taken):
+		if not isinstance(hero_state,hero.Hero):
+			raise ValueError("Invalid hero state.")
+		if action_taken not in action.ACTIONS:
+			raise ValueError("Invalid action.")
+
+		hero_next_state = hero_state.copy()
+		hero_next_state.doAction(action_taken)
+
+		hero_next_position = hero_next_state.getPosition()
+
+		cost = 1
+		for direct in direction.DIRECTIONS:
+			check_pos = hero_next_position + direction.toVector(direct)
+			if self.known_maze.exists(check_pos):
+				cost += 5
+
+		return cost
 
 
 		

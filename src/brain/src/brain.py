@@ -37,13 +37,8 @@ def createGame(discretization_x, discretization_y,tuple_for_hero_position,hero_d
 	return my_game
 
 def solveGame(game_to_solve):
-	game_image = game_to_solve.toImage()
-	images.plotImage(game_image,True)
 
 	camera_astar_exe.run(game_to_solve,timestep_in_seconds=5.0,show_results=True)
-
-	game_image = game_to_solve.toImage()
-	images.plotImage(game_image,True)
 
 if __name__ == '__main__':
     rospy.init_node('brain_node')
