@@ -1,8 +1,0 @@
-prefix=/home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel
-
-Name: man_joy_override
-Description: Description of man_joy_override
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel/lib 
-Requires: 
