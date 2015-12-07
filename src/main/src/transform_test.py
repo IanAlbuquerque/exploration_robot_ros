@@ -23,9 +23,9 @@ def processARMarkers(data):
     global marker
     global marker_pub
 
-    zumy_pos = aux.getZumyPositionFromAlvarMarkers(9, 16, data)
-    aux.publishMarker(zumy_pos,np.array([1,1,1,1]),0,[0,1,0],"ar_marker_16",[0.6096,0.6096,0.6096],marker_pub,2)
-    aux.publishMarker(np.array([0.3048,0,0]),np.array([0,0,0,0]),0,[1,0,0],"ar_marker_16",[0.1,0.1,0.01],marker_pub,1)
+    zumy_pos = aux.getZumyPositionFromAlvarMarkers(3, 0, data)
+    aux.publishMarker(zumy_pos,np.array([1,1,1,1]),1234,[0,1,0],"ar_marker_0",[0.6096,0.6096,0.6096],marker_pub,2)
+    aux.publishMarker(np.array([0.3048,0,0]),np.array([0,0,0,0]),1235,[1,0,0],"ar_marker_0",[0.1,0.1,0.01],marker_pub,1)
 
     # tfTransformer = tf.TransformerROS()
 

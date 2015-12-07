@@ -2,8 +2,8 @@ import fileinput
 import os
 import sys
 
-# AR_TAG_SIZE_ = str(8) #ar tags for the zumys
-AR_TAG_SIZE_ = str(5.5) #test ar tag size
+AR_TAG_SIZE_ = str(8) #ar tags for the zumys
+#AR_TAG_SIZE_ = str(5.5) #test ar tag size
 
 yml_dependent_paths = ['src/ar_track_alvar/launch/webcam_track.launch',
                     'src/homography/launch/run_cam.launch']

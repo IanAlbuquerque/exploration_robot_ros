@@ -94,20 +94,20 @@ def executeMessageFromBrain(data):
     #print "ENVIOU"
     zumy_twist_pub.publish(data)
 
-def setHomographyMatrix(data):
-    global HOMOGRAPHY_MATRIX
-    HOMOGRAPHY_MATRIX = np.zeros((3,3))
-    HOMOGRAPHY_MATRIX[0,0] = data.e00
-    HOMOGRAPHY_MATRIX[0,1] = data.e01
-    HOMOGRAPHY_MATRIX[0,2] = data.e02
-    HOMOGRAPHY_MATRIX[1,0] = data.e10
-    HOMOGRAPHY_MATRIX[1,1] = data.e11
-    HOMOGRAPHY_MATRIX[1,2] = data.e12
-    HOMOGRAPHY_MATRIX[2,0] = data.e20
-    HOMOGRAPHY_MATRIX[2,1] = data.e21
-    HOMOGRAPHY_MATRIX[2,2] = data.e22
+# def setHomographyMatrix(data):
+#     global HOMOGRAPHY_MATRIX
+#     HOMOGRAPHY_MATRIX = np.zeros((3,3))
+#     HOMOGRAPHY_MATRIX[0,0] = data.e00
+#     HOMOGRAPHY_MATRIX[0,1] = data.e01
+#     HOMOGRAPHY_MATRIX[0,2] = data.e02
+#     HOMOGRAPHY_MATRIX[1,0] = data.e10
+#     HOMOGRAPHY_MATRIX[1,1] = data.e11
+#     HOMOGRAPHY_MATRIX[1,2] = data.e12
+#     HOMOGRAPHY_MATRIX[2,0] = data.e20
+#     HOMOGRAPHY_MATRIX[2,1] = data.e21
+#     HOMOGRAPHY_MATRIX[2,2] = data.e22
 
-    #print HOMOGRAPHY_MATRIX
+#     #print HOMOGRAPHY_MATRIX
 
 # def fromHomog(pos):
 #     return (pos[0]/pos[2],pos[1]/pos[2])
@@ -213,7 +213,7 @@ def flow_control(zumy_name,base_ar_tag,zumy_ar_tag):
     rospy.Subscriber("/main/main_node_drive/", Twist, receiveMessageFromTeleop)
     rospy.Subscriber("/main/state_switch/",String,receiveMessageCommand)
     rospy.Subscriber("/brain/action_message_from_brain/",Twist,executeMessageFromBrain)
-    rospy.Subscriber("/main/homography_matrix/",matrix3_3,setHomographyMatrix)
+    # rospy.Subscriber("/main/homography_matrix/",matrix3_3,setHomographyMatrix)
     rospy.Subscriber("/ar_pose_marker", AlvarMarkers, processARMarkers)
     rospy.Subscriber('/' + zumy_name + '/sensors', Byte, readSensorMessage)
 
