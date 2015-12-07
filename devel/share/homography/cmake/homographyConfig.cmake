@@ -67,14 +67,14 @@ set(homography_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(homography_SOURCE_PREFIX /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography)
-  set(homography_DEVEL_PREFIX /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel)
+  set(homography_SOURCE_PREFIX /home/cc/ee106a/fa15/class/ee106a-az/final_proj/src/homography)
+  set(homography_DEVEL_PREFIX /home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel)
   set(homography_INSTALL_PREFIX "")
   set(homography_PREFIX ${homography_DEVEL_PREFIX})
 else()
   set(homography_SOURCE_PREFIX "")
   set(homography_DEVEL_PREFIX "")
-  set(homography_INSTALL_PREFIX /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/install)
+  set(homography_INSTALL_PREFIX /home/cc/ee106a/fa15/class/ee106a-az/final_proj/install)
   set(homography_PREFIX ${homography_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(homography_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/include " STREQUAL " ")
+if(NOT "/home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel/include " STREQUAL " ")
   set(homography_INCLUDE_DIRS "")
-  set(_include_dirs "/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/include")
+  set(_include_dirs "/home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel/include")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -103,7 +103,7 @@ if(NOT "/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/include " STREQUAL
         message(FATAL_ERROR "Project 'homography' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'abuchan <abuchan@todo.todo>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'homography' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/src/homography/${idir}'.  Ask the maintainer 'abuchan <abuchan@todo.todo>' to fix it.")
+      message(FATAL_ERROR "Project 'homography' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/cc/ee106a/fa15/class/ee106a-az/final_proj/src/homography/${idir}'.  Ask the maintainer 'abuchan <abuchan@todo.todo>' to fix it.")
     endif()
     _list_append_unique(homography_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib;/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib;/opt/ros/indigo/lib)
+    foreach(path /home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel/lib;/home/cc/ee106a/fa15/class/ee106a-az/ros_workspaces/lab3/devel/lib;/opt/ros/indigo/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

@@ -1,0 +1,52 @@
+self.sensor16 = DigitalIn(self.mbed, p16)
+self.sensor17 = DigitalIn(self.mbed, p17)
+self.sensor18 = DigitalIn(self.mbed, p18)
+self.sensor19 = DigitalIn(self.mbed, p19)
+
+##std_msgs/Byte.msg
+
+
+self.di_pub = rospy.Publisher('/' + self.name + '/sensors', Byte, queue_size=1)
+
+sensor_data = self.zumy.read_sensors()
+
+self.sensor_pub.publish(sensor_data)
+
+
+    def read_sensors(self):
+        sensor_message = self.sensor16.read()
+
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | self.sensor17.read()
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | self.sensor18.read()
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | self.sensor19.read()
+        return sensor_message
+
+
+    def read_sensors(self):
+        sensor_message = (~self.sensor16.read() & 1)
+
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | (~self.sensor17.read() & 1)
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | (~self.sensor18.read() & 1)
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | (~self.sensor19.read() & 1)
+        return sensor_message
+
+
+def readSensorMessage (data):
+	msg = data.data
+	sensors_dict={'pin16':False, 'pin17':False, 'pin18':False, 'pin19':False}
+	if msg & 0x01: #pin19
+		sensors_dict[] = True
+	if msg & 0x02: #pin18
+		sensors_dict[] = True
+	if msg & 0x04: #pin17
+		sensors_dict[] = True
+	if msg & 0x08: #pin16
+		sensors_dict[] = True
+	return sensors_dict
+

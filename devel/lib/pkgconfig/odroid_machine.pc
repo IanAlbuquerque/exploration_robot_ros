@@ -1,8 +1,8 @@
-prefix=/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel
+prefix=/home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel
 
 Name: odroid_machine
 Description: Description of odroid_machine
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/cc/ee106a/fa15/class/ee106a-bc/final_proj/devel/lib 
+Libs: -L/home/cc/ee106a/fa15/class/ee106a-az/final_proj/devel/lib 
 Requires: 
