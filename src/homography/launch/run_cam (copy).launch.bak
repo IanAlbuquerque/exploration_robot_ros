@@ -17,7 +17,7 @@
 
 
   
-  <node name="camera_srv" pkg="lab4_cam" type="camera_srv.py"  respawn="false" output="screen" />
-  <node name="image_process" pkg="lab4_cam" type="image_process.py"  respawn="false" output="screen" />
+  <node name="camera_srv" pkg="homography" type="camera_srv.py"  respawn="false" output="screen" />
+  <node name="image_process" pkg="homography" type="image_process.py"  respawn="false" output="screen" />
   
 </launch>
