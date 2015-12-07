@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "homography")
-set(homography_MAINTAINER "abuchan <abuchan@todo.todo>")
-set(homography_DEPRECATED "")
-set(homography_VERSION "0.0.0")
-set(homography_BUILD_DEPENDS "message_generation" "rospy" "sensor_msgs")
-set(homography_RUN_DEPENDS "message_runtime" "rospy" "sensor_msgs")
-set(homography_BUILDTOOL_DEPENDS "catkin")
