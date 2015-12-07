@@ -1,0 +1,8 @@
+<launch>
+
+	<arg name="discretization_x" />
+	<arg name="discretization_y" />
+
+	<node name="brain_node" pkg="brain" type="brain.py" output="screen" respawn="false" args="$(arg discretization_x) $(arg discretization_y)"/>
+
+</launch>

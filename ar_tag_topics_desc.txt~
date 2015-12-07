@@ -7,6 +7,6 @@
 	each tag on a dif msg
 	doesnt send msgs when no tags on view
 
-/ar_pose_marker
+/ar_pose_marker *****************
 	all tags on same msg
 	sends empty msg when no tags on view

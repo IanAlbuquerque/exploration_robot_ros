@@ -10,3 +10,10 @@
 /ar_pose_marker *****************
 	all tags on same msg
 	sends empty msg when no tags on view
+
+	(1.8,0.1)
+	-x,-y		+x,-y	
+		0,0
+	-x,+y		+x,+y
+
+

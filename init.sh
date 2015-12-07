@@ -18,7 +18,9 @@
 
 gnome-terminal --title=odroid -e scripts/odroid.sh
 sleep 6s
+gnome-terminal --title=main_node -e scripts/ar_tracking.sh
+sleep 5s
 gnome-terminal --title=main_node -e scripts/main_node.sh
 sleep 5s
-gnome-terminal --title=homography -e scripts/homography.sh
-sleep 5s
+#gnome-terminal --title=homography -e scripts/homography.sh
+#sleep 5s

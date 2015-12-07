@@ -13,15 +13,28 @@ sensor_data = self.zumy.read_sensors()
 self.sensor_pub.publish(sensor_data)
 
 
-def read_sensors(self):
-	sensor_message = self.sensor16.read()
-	sensor_message << 1
-    sensor_message | self.sensor17.read()
-    sensor_message << 1
-    sensor_message | self.sensor18.read()
-    sensor_message << 1
-    sensor_message | self.sensor19.read()
-    return sensor_message
+    def read_sensors(self):
+        sensor_message = self.sensor16.read()
+
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | self.sensor17.read()
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | self.sensor18.read()
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | self.sensor19.read()
+        return sensor_message
+
+
+    def read_sensors(self):
+        sensor_message = (~self.sensor16.read() & 1)
+
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | (~self.sensor17.read() & 1)
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | (~self.sensor18.read() & 1)
+        sensor_message = sensor_message << 1
+        sensor_message = sensor_message | (~self.sensor19.read() & 1)
+        return sensor_message
 
 
 def readSensorMessage (data):

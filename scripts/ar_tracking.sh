@@ -1,4 +1,4 @@
 
 source $(pwd)/scripts/set_env.sh
 echo "Launching ar tracking node"
-roslaunch webcam_track.launch
+roslaunch ar_track_alvar webcam_track.launch
