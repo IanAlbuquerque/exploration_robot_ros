@@ -1,5 +1,4 @@
 build/
-devel/share/
-devel/lib/
+devel/
 *.pyc
 *~
