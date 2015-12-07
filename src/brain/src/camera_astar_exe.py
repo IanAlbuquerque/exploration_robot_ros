@@ -52,6 +52,7 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 				# 	recalculate_route = True
 
 				sensor_readings = game.readSensors()
+
 				game.ackSensor(sensor_readings)
 
 				if show_results:

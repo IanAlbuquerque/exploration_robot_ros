@@ -23,8 +23,8 @@ def doAction(game, action_taken):
 	global zumy_angle
 	global rate
 
-	LINEAR = 0.1
-	ROT = 0.2
+	LINEAR = 0.12
+	ROT = 0.3
 	ANGLE_TOLERANCE = 5
 	twist = Twist()
 

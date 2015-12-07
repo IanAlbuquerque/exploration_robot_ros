@@ -172,7 +172,12 @@ class Game:
 		for direc in true_readings:
 			position_to_ack = hero_position + direction.toVector(direc)
 			self.known_cells.setValue(position_to_ack,True)
-			self.known_maze.setValue(position_to_ack,true_readings[direc])
+			if not self.walls.exists(position_to_ack) and not self.known_maze.exists(position_to_ack):
+				self.known_maze.setValue(position_to_ack,true_readings[direc])
+				self.walls.setValue(position_to_ack,true_readings[direc])
+			else:
+				self.known_maze.setValue(position_to_ack,True)
+				self.walls.setValue(position_to_ack,True)
 
 	def setHeroPosition(self,new_hero_position):
 		if not isinstance(new_hero_position,vector.Vector):

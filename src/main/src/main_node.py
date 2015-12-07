@@ -229,12 +229,16 @@ if __name__=='__main__':
 
     origin_ar_tag = int(sys.argv[4])
     end_ar_tag = int(sys.argv[5])
+    DISCRETIZATION_X = int(sys.argv[6])
+    DISCRETIZATION_Y = int(sys.argv[7])
 
     print zumy_name
     print base_ar_tag
     print zumy_ar_tag
     print origin_ar_tag
     print end_ar_tag
+    print DISCRETIZATION_X
+    print DISCRETIZATION_Y
 
     rate = rospy.Rate(10)
 
