@@ -66,7 +66,7 @@ def readSensorMessage(data):
 
     sensor_message = Int32MultiArray()
     # North, East, South, West
-    sensor_message.data = [sensors_dict['pin18'],sensors_dict['pin17'],sensors_dict['pin19'],sensors_dict['pin16']]
+    sensor_message.data = [sensors_dict['pin19'],sensors_dict['pin18'],sensors_dict['pin17'],sensors_dict['pin16']]
     brain_sensor_pub.publish (sensor_message)
 
 def receiveMessageFromTeleop(data):
@@ -194,19 +194,19 @@ def setGridPositions():
 
     x_dist = math.fabs(end_position.x - origin_position.x)
     y_dist = math.fabs(end_position.y - origin_position.y)
-    zumy_grid_pos_x = DISCRETIZATION_X*(zumy_position.x-origin_position.x)/x_dist
-    zumy_grid_pos_y = DISCRETIZATION_Y*(zumy_position.y-origin_position.y)/y_dist
+    zumy_grid_pos_x = (DISCRETIZATION_X+2)*(zumy_position.x-origin_position.x)/x_dist
+    zumy_grid_pos_y = (DISCRETIZATION_Y+2)*(zumy_position.y-origin_position.y)/y_dist
     zumy_grid_pos = (zumy_grid_pos_x,zumy_grid_pos_y)
 
-    base_grid_pos_x = DISCRETIZATION_X*(base_position.x-origin_position.x)/x_dist
-    base_grid_pos_y = DISCRETIZATION_Y*(base_position.y-origin_position.y)/y_dist
+    base_grid_pos_x = (DISCRETIZATION_X+2)*(base_position.x-origin_position.x)/x_dist
+    base_grid_pos_y = (DISCRETIZATION_Y+2)*(base_position.y-origin_position.y)/y_dist
     base_grid_pos = (base_grid_pos_x,base_grid_pos_y)
 
     zumy_angle = ANGLE_BETWEEN_ORIGIN_AND_END*(quaToZAngle(zumy_rot)-quaToZAngle(origin_rot))/(quaToZAngle(end_rot) - quaToZAngle(origin_rot))
 
     cam_message = Int32MultiArray()
-    cam_message.data = [int(zumy_grid_pos[1])+1,int(zumy_grid_pos[0])+1,(int(zumy_angle)+360)%360]
-    print cam_message.data
+    cam_message.data = [int(zumy_grid_pos[1]),int(zumy_grid_pos[0]),(int(zumy_angle)+360)%360]
+    print str((DISCRETIZATION_X,DISCRETIZATION_Y)) + " " + str(cam_message.data)
     brain_cam_pub.publish(cam_message)
 
 def flow_control(zumy_name,base_ar_tag,zumy_ar_tag):

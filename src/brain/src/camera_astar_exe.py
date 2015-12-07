@@ -7,6 +7,18 @@ import rospy
 
 def run(game,timestep_in_seconds=0.001,show_results=True):
 
+
+	game.setHeroPosition(zumy_interface.getZumyPositionCamera(game))
+	game.setHeroDirection(zumy_interface.getZumyDirectionCamera(game))
+
+	print "HERO POSITION"
+	print game.hero.getPosition().x
+	print game.hero.getPosition().y
+
+	if show_results:
+		game_image = game.toImage()
+		images.plotImage(game_image,True)
+
 	actions = offline_deterministic_know_planner.solveAStar(game)
 	print actions
 
@@ -15,6 +27,8 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 		images.plotImage(game_image,False)
 
 	recalculate_route = True
+	
+	zumy_interface.fixDirection(game)
 
 	while(recalculate_route):
 		recalculate_route = False
@@ -51,7 +65,11 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 
 				# 	recalculate_route = True
 
+				zumy_interface.fixDirection(game)
+
 				sensor_readings = game.readSensors()
+
+
 
 				game.ackSensor(sensor_readings)
 
@@ -70,6 +88,10 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 
 			plt.pause(timestep_in_seconds)
 			rospy.sleep(timestep_in_seconds)
+
+	if show_results:
+		game_image = game.toImage()
+		images.plotImage(game_image,True)
 
 	return game
 	
