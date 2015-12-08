@@ -17,7 +17,7 @@ zumy_pos_y = None
 zumy_angle = None
 rate = None
 
-LINEAR = 0.23
+LINEAR = 0.1
 ROT = 0.30
 ANGLE_TOLERANCE = 10
 

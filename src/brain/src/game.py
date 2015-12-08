@@ -4,6 +4,8 @@ import direction
 import action
 import vector
 import zumy_interface
+from geometry_msgs.msg import Point
+import rospy
 
 #import skimage.io as skio
 import matplotlib.pyplot as plt
@@ -23,6 +25,8 @@ class Game:
 		if game_goal_position != None:
 			if not isinstance(game_goal_position,vector.Vector):
 				raise ValueError("Invalid type for goal position")
+
+		self.setWall_pub = rospy.Publisher("/map/setWall", Point, queue_size = 1)
 
 		self.hero = game_hero
 		self.walls = walls_grid
@@ -169,6 +173,7 @@ class Game:
 
 	def ackSensor(self,sensor_readings):
 		hero_position = self.hero.getPosition()
+		msg = Point()
 
 		true_readings = {}
 		for sensor_direction in sensor_readings:
@@ -182,12 +187,25 @@ class Game:
 			if not self.walls.exists(position_to_ack) and not self.known_maze.exists(position_to_ack):
 				self.known_maze.setValue(position_to_ack,true_readings[direc])
 				self.walls.setValue(position_to_ack,true_readings[direc])
+				
+				msg.x = position_to_ack.x
+				msg.y = position_to_ack.y
+				msg.z = int(true_readings[direc])
+				self.setWall_pub.publish(msg)
 			else:
 				self.known_maze.setValue(position_to_ack,True)
 				self.walls.setValue(position_to_ack,True)
+				msg.x = position_to_ack.x
+				msg.y = position_to_ack.y
+				msg.z = 1
+				self.setWall_pub.publish(msg)
 
 			# self.known_maze.setValue(position_to_ack,true_readings[direc])
 			# self.walls.setValue(position_to_ack,true_readings[direc])
+		msg.x = hero_position.x
+		msg.y = hero_position.y
+		msg.z = 0
+		self.setWall_pub.publish(msg)
 		self.known_maze.setValue(hero_position,False)
 		self.walls.setValue(hero_position,False)
 

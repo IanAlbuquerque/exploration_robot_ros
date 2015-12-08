@@ -100,7 +100,7 @@ def processARMarkers(data):
         marker_position = marker.pose.pose.position
         marker_orientation = marker.pose.pose.orientation
 
-        elif marker.id == zumy_ar_tag:
+        if marker.id == zumy_ar_tag:
             zumy_trans, zumy_rot = util.arraysFromAlvarMarker(marker)
         elif marker.id == base_ar_tag:
             base_trans, base_rot = util.arraysFromAlvarMarker(marker)
@@ -108,7 +108,7 @@ def processARMarkers(data):
     setGridPositions((zumy_trans,zumy_rot), (base_trans,base_rot))
 
 def quaToZAngle(q):
-    angles = euler_from_quaternion((q.[0],q.[1],q.[2],q.[3]))
+    angles = euler_from_quaternion((q[0],q[1],q[2],q[3]))
     return angles[2]
 
 def setGridPositions(zumy_arrays, base_arrays):
@@ -130,17 +130,17 @@ def setGridPositions(zumy_arrays, base_arrays):
     base_grid_pos_y = 0
     base_grid_pos = (base_grid_pos_x,base_grid_pos_y)
 
-    # zumy_angle = ANGLE_BETWEEN_ORIGIN_AND_END*(quaToZAngle(zumy_rot)-quaToZAngle(origin_rot))/(quaToZAngle(end_rot) - quaToZAngle(origin_rot))
-    zumy_angle = quaToZAngle(zumy_arrays[1]) - quaToZAngle(base_arrays[1])
+    zumy_angle = (quaToZAngle(zumy_arrays[1]) - quaToZAngle(base_arrays[1]))*180/3.14159
 
     cam_message = Int32MultiArray()
-    cam_message.data = [int(zumy_grid_pos[1]),int(zumy_grid_pos[0]),(int(zumy_angle)+360)%360]
-    print "main_node.py: ",
-    print "zumy pos: ",
-    print zumy_grid_pos,
-    print " zumy angle: ",
-    print zumy_angle
-    # print str((DISCRETIZATION_X,DISCRETIZATION_Y)) + " " + str(cam_message.data)
+    cam_message.data = [int(zumy_grid_pos[1])+DISCRETIZATION_Y/2,int(zumy_grid_pos[0])+DISCRETIZATION_X/2,(int(zumy_angle)+360)%360]
+    print cam_message
+    # print "main_node.py: ",
+    # print "zumy pos: ",
+    # print "(%d , %d) " % (int(zumy_grid_pos[0]), int(zumy_grid_pos[1])),
+    # print " zumy angle: ",
+    # print zumy_angle
+    # print cam_message.data
     brain_cam_pub.publish(cam_message)
 
 #def flow_control(zumy_name,base_ar_tag,zumy_ar_tag):
@@ -156,8 +156,8 @@ if __name__=='__main__':
     base_ar_tag = int(sys.argv[2])
     zumy_ar_tag = int(sys.argv[3])
 
-    DISCRETIZATION_X = 200
-    DISCRETIZATION_Y = 200
+    DISCRETIZATION_X = 20
+    DISCRETIZATION_Y = 20
 
     print zumy_name
     print base_ar_tag
@@ -177,7 +177,7 @@ if __name__=='__main__':
     zumy_twist_pub = rospy.Publisher("/"+zumy_name+"/cmd_vel", Twist, queue_size = 1)
     brain_sensor_pub = rospy.Publisher("/brain/sensor_data_to_brain/", Int32MultiArray, queue_size = 1)
     brain_cam_pub = rospy.Publisher("/brain/cam_data_to_brain/", Int32MultiArray, queue_size = 1)
-    flow_control(zumy_name,base_ar_tag,zumy_ar_tag)
+    #flow_control(zumy_name,base_ar_tag,zumy_ar_tag)
 
     
     rospy.spin()

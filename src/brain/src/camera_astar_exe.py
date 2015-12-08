@@ -7,7 +7,6 @@ import rospy
 
 def run(game,timestep_in_seconds=0.001,show_results=True):
 
-
 	game.setHeroPosition(zumy_interface.getZumyPositionCamera(game))
 	game.setHeroDirection(zumy_interface.getZumyDirectionCamera(game))
 
@@ -30,7 +29,7 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 	
 	zumy_interface.fixDirection(game)
 
-	while(recalculate_route):
+	while(recalculate_route and not rospy.is_shutdown()):
 
 		if show_results:
 			game_image = game.toImage()
@@ -38,7 +37,7 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 
 		recalculate_route = False
 
-		print "actions = "
+		print "actions = ",
 		print actions
 		for action in actions:
 			if game.canDoAction(action):
@@ -51,8 +50,15 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 				zumy_brain_dir = game.getHero().getDirection()
 
 				if zumy_cam_pos != zumy_brain_pos:
-					print "Position wrong"
+					print "Position wrong: ",
+					print "zumy_cam_pos: ",
+					print zumy_cam_pos.toTuple(),
+					print ", zumy_brain_pos: ",
+					print zumy_brain_pos.toTuple(),
 					game.setHeroPosition(zumy_cam_pos)
+					zumy_brain_pos = game.getHero().getPosition()
+					print ", wutt: "
+					print zumy_brain_pos.toTuple()
 
 					recalculate_route = True
 

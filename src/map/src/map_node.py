@@ -14,18 +14,29 @@ class Grid ():
 		self.cellSize = cellSize
 
 	def setWall(self,data):
-		if data.x+self.x_offset<0 or data.x+self.x_offset>self.shape[0]-1:
+		# if data.x+self.x_offset<0 or data.x+self.x_offset>self.shape[0]-1:
+		# 	print "map_node: x index out of bounds, x: %d, shape.x: %d" %(data.x, self.shape[0])
+		# 	return
+		# if data.y+self.y_offset<0 or data.y+self.y_offset>self.shape[0]-1:
+		# 	print "map_node: y index out of bounds, y: %d, shape.y: %d" %(data.y, self.shape[1])
+		# 	return
+		if data.x<0 or data.x>self.shape[0]-1:
 			print "map_node: x index out of bounds, x: %d, shape.x: %d" %(data.x, self.shape[0])
 			return
-		if data.y+self.y_offset<0 or data.y+self.y_offset>self.shape[0]-1:
+		if data.y<0 or data.y>self.shape[0]-1:
 			print "map_node: y index out of bounds, y: %d, shape.y: %d" %(data.y, self.shape[1])
 			return
 
+		# if data.z==1:
+		# 	self.grid[data.x+self.x_offset,data.y+self.y_offset]=1
+		# else:
+		# 	self.grid[data.x+self.x_offset,data.y+self.y_offset]=0
+		# print self.grid
 		if data.z==1:
-			self.grid[data.x+self.x_offset,data.y+self.y_offset]=1
+			self.grid[data.x,data.y]=1
 		else:
-			self.grid[data.x+self.x_offset,data.y+self.y_offset]=0
-		print self.grid
+			self.grid[data.x,data.y]=0
+		#print self.grid
 
 	def publishMarkers(self):
 		pointsV=[]
@@ -80,7 +91,7 @@ if __name__=='__main__':
 
     marker_pub = rospy.Publisher("/visualization_marker", Marker, queue_size = 1)
 
-    grid = Grid((10,10),0.1)
+    grid = Grid((20,20),0.1)
     rospy.Subscriber("/map/setWall", Point, grid.setWall)
     rate = rospy.Rate(2)
 

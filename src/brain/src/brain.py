@@ -3,7 +3,7 @@
 import numpy as np
 
 import grid
-import images
+#import images
 import game
 import hero
 import vector
@@ -16,7 +16,7 @@ import zumy_interface
 MAP_FILE_NAME = "maps/viana.jpg"
 
 def createGame(discretization_x, discretization_y,tuple_for_hero_position,hero_direction,tuple_for_goal_position):
-	img = images.readImage(MAP_FILE_NAME)
+	#img = images.readImage(MAP_FILE_NAME)
 	MAZE_SIZE_Y = discretization_y
 	MAZE_SIZE_X = discretization_x
 
@@ -38,16 +38,18 @@ def createGame(discretization_x, discretization_y,tuple_for_hero_position,hero_d
 
 def solveGame(game_to_solve):
 
-	camera_astar_exe.run(game_to_solve,timestep_in_seconds=5.0,show_results=True)
+	camera_astar_exe.run(game_to_solve,timestep_in_seconds=5.0,show_results=False)
 
 if __name__ == '__main__':
     rospy.init_node('brain_node')
+
+
 
     discretization_x = int(sys.argv[1])
     discretization_y = int(sys.argv[2])
     zumy_starting_position = (1,1)
     zumy_starting_direction = direction.SOUTH
-    goal_position = (discretization_x,discretization_y)
+    goal_position = (10,10)
 
     zumy_interface.setUp()
 
