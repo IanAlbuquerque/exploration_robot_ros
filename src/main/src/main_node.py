@@ -70,6 +70,8 @@ def readSensorMessage(data):
     brain_sensor_pub.publish (sensor_message)
 
 def receiveMessageFromTeleop(data):
+    trash = 1
+    """
     if state == DRIVE:
         if not rospy.is_shutdown():
         #     if sensor_wall_reading == False:
@@ -85,6 +87,7 @@ def receiveMessageFromTeleop(data):
                 zumy_twist_pub.publish(still_twist)
             else:
                 zumy_twist_pub.publish(data)
+    """
 
 def receiveMessageCommand(data):
     #print data
@@ -93,6 +96,7 @@ def receiveMessageCommand(data):
 def executeMessageFromBrain(data):
     #print "ENVIOU"
     zumy_twist_pub.publish(data)
+    #zumy_twist_pub.publish(still_twist)
 
 def setHomographyMatrix(data):
     global HOMOGRAPHY_MATRIX

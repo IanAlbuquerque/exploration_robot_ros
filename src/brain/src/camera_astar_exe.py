@@ -7,7 +7,7 @@ import rospy
 
 def run(game,timestep_in_seconds=0.001,show_results=True):
 
-
+	zumy_interface.stop()
 	game.setHeroPosition(zumy_interface.getZumyPositionCamera(game))
 	game.setHeroDirection(zumy_interface.getZumyDirectionCamera(game))
 

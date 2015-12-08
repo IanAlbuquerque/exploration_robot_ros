@@ -17,9 +17,13 @@ zumy_pos_y = None
 zumy_angle = None
 rate = None
 
-LINEAR = 0.23
-ROT = 0.35
+LINEAR = 0.13
+ROT = 0.25
 ANGLE_TOLERANCE = 8
+NUMBER_CONSTANT_READING_TO_WAIT = 10
+FIXING_REG_CTE = 1
+
+still_twist = Twist()
 
 def doAction(game, action_taken):
 
@@ -27,6 +31,13 @@ def doAction(game, action_taken):
 	global zumy_pos_y
 	global zumy_angle
 	global rate
+	global sensorNorth
+	global sensorSouth
+	global sensorEast
+	global sensorWest
+	global NUMBER_CONSTANT_READING_TO_WAIT
+	global still_twist
+
 	global LINEAR
 	global ROT
 	global ANGLE_TOLERANCE
@@ -34,7 +45,13 @@ def doAction(game, action_taken):
 	twist = Twist()
 
 	initial_angle = zumy_angle
+	initial_pos_x = zumy_pos_x
+	initial_pos_y = zumy_pos_y
+	zumy_direction = game.hero.direction
 
+	print "DIRECTIOn = ",
+	print zumy_direction
+	print direction.toVector(zumy_direction).toTuple()
 	if action_taken == action.FOWARD:
 		print "GOING FOWARD"
 
@@ -46,8 +63,17 @@ def doAction(game, action_taken):
 		# if not game.walls.exists(hero_next_position):
 		# 	game.hero = hero_next_state
 		twist.linear.x = LINEAR
-		action_publisher.publish(twist)
 
+		desired_position_x = initial_pos_x + direction.toVector(zumy_direction).x
+		desired_position_y = initial_pos_y + direction.toVector(zumy_direction).y
+		print (zumy_pos_x,zumy_pos_y)
+		print (desired_position_x,desired_position_y)
+		while zumy_pos_x != desired_position_x or zumy_pos_y != desired_position_y:
+			print "loop foward"
+			if (zumy_pos_x != initial_pos_x or zumy_pos_y != initial_pos_y or sensorNorth == True):
+				break
+			action_publisher.publish(twist)
+			rate.sleep()
 
 	elif action_taken == action.RIGHT:
 		print "TURNING RIGHT"
@@ -63,10 +89,22 @@ def doAction(game, action_taken):
 
 		twist.angular.z = -ROT
 
-		while(angleDif((initial_angle+90)%360,zumy_angle) > ANGLE_TOLERANCE):
+		while(((initial_angle + 90)%360 - (zumy_angle)%360)%360 > ANGLE_TOLERANCE):
 			print "r"
-			print zumy_angle
+			#before_dif = angleDif((initial_angle + 90)%360,zumy_angle)
 			action_publisher.publish(twist)
+
+			# before_reading = zumy_angle
+			# equal_times = 0
+			# while(equal_times < NUMBER_CONSTANT_READING_TO_WAIT):
+			# 	print "whey"
+			# 	equal_times += 1
+			# 	print zumy_angle
+			# 	print before_reading
+			# 	if(zumy_angle != before_reading):
+			# 		equal_times = 0
+			# after_dif = angleDif((initial_angle + 90)%360,zumy_angle)
+
 			rate.sleep()
 	
 	elif action_taken == action.BACKWARD:
@@ -80,7 +118,18 @@ def doAction(game, action_taken):
 		# if not game.walls.exists(hero_next_position):
 		# 	game.hero = hero_next_state
 		twist.linear.x = -LINEAR
-		action_publisher.publish(twist)
+
+		desired_position_x = initial_pos_x - direction.toVector(zumy_direction).x
+		desired_position_y = initial_pos_y - direction.toVector(zumy_direction).y
+		print (zumy_pos_x,zumy_pos_y)
+		print (desired_position_x,desired_position_y)
+		while zumy_pos_x != desired_position_x or zumy_pos_y != desired_position_y:
+			print "loop foward"
+			if (zumy_pos_x != initial_pos_x or zumy_pos_y != initial_pos_y or sensorSouth == True):
+				break
+			action_publisher.publish(twist)
+			rate.sleep()
+
 	
 	elif action_taken == action.LEFT:
 		print "TURNING LEFT"
@@ -93,11 +142,27 @@ def doAction(game, action_taken):
 		# if not game.walls.exists(hero_next_position):
 		# 	game.hero = hero_next_state
 		twist.angular.z = ROT
-		while(angleDif((initial_angle-90)%360,zumy_angle)>ANGLE_TOLERANCE):
-			print "l"
-			print zumy_angle
+
+		while(((initial_angle - 90)%360 - (zumy_angle)%360)%360 > ANGLE_TOLERANCE):
+			print "r"
+			# before_dif = angleDif((initial_angle - 90)%360,zumy_angle)
 			action_publisher.publish(twist)
+
+			# before_reading = zumy_angle
+			# equal_times = 0
+			# while(equal_times < NUMBER_CONSTANT_READING_TO_WAIT):
+			# 	print "whe+"
+			# 	equal_times += 1
+			# 	print zumy_angle
+			# 	print before_reading
+			# 	if(zumy_angle != before_reading):
+			# 		equal_times = 0
+			# after_dif = angleDif((initial_angle - 90)%360,zumy_angle)
+
 			rate.sleep()
+
+	action_publisher.publish(still_twist)
+	
 
 def readSensor(game, direct):
 	if direct == direction.NORTH:
@@ -178,15 +243,34 @@ def fixDirection(game):
 		return
 
 	initial_dif = angleDif(desired_angle,initial_angle)
-	twist.angular.z = -ROT/10.0
+	twist.angular.z = -ROT*FIXING_REG_CTE
 
-	for i in xrange(20):
+	"""
+	while(((desired_angle - 90)%360 - (zumy_angle)%360)%360 > ANGLE_TOLERANCE):
+		print "r"
+		before_dif = angleDif((desired_angle)%360,zumy_angle)
+		action_publisher.publish(twist)
+
+		before_reading = zumy_angle
+		equal_times = 0
+		while(equal_times < NUMBER_CONSTANT_READING_TO_WAIT):
+			equal_times -= 1
+			if(zumy_angle != before_reading):
+				equal_times = NUMBER_CONSTANT_READING_TO_WAIT
+		after_dif = angleDif((desired_angle)%360,zumy_angle)
+
+		rate.sleep()
+	"""
+
+	for i in xrange(2):
 		print "*fixing direction from " + str(zumy_angle) + "to" + str(desired_angle)
 		print angleDif(desired_angle,zumy_angle)
 		action_publisher.publish(twist)
 		rate.sleep()
 		if (angleDif(desired_angle,zumy_angle) < ANGLE_TOLERANCE):
 			return
+		rate.sleep()
+
 
 	after_dif = angleDif(desired_angle,zumy_angle)
 
@@ -259,7 +343,11 @@ def getCamData(data):
 def setUp():
 	global action_publisher
 	global rate
-	rate = rospy.Rate(3)
+	rate = rospy.Rate(10)
 	action_publisher = rospy.Publisher("/brain/action_message_from_brain/", Twist, queue_size = 1)
 	rospy.Subscriber("/brain/sensor_data_to_brain/",Int32MultiArray,getSensorData)
 	rospy.Subscriber("/brain/cam_data_to_brain/",Int32MultiArray,getCamData)
+
+def stop():
+	global still_twist
+	action_publisher.publish(still_twist)
