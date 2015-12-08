@@ -18,8 +18,17 @@ zumy_angle = None
 rate = None
 
 LINEAR = 0.23
-ROT = 0.35
-ANGLE_TOLERANCE = 8
+ROT = 0.30
+ANGLE_TOLERANCE = 10
+
+NORTH_ANGLE = 0
+EAST_ANGLE = 270
+SOUTH_ANGLE = 180
+WEST_ANGLE = 90
+
+RIGHT_TURN = -ROT
+NUM_TIMES_TRY_ADJUSTMENT = 2
+AJUSTMENT_FACTOR = 0.5
 
 def doAction(game, action_taken):
 
@@ -61,7 +70,7 @@ def doAction(game, action_taken):
 		# 	game.hero = hero_next_state
 
 
-		twist.angular.z = -ROT
+		twist.angular.z = RIGHT_TURN
 
 		while(angleDif((initial_angle+90)%360,zumy_angle) > ANGLE_TOLERANCE):
 			print "r"
@@ -92,7 +101,7 @@ def doAction(game, action_taken):
 
 		# if not game.walls.exists(hero_next_position):
 		# 	game.hero = hero_next_state
-		twist.angular.z = ROT
+		twist.angular.z = -RIGHT_TURN
 		while(angleDif((initial_angle-90)%360,zumy_angle)>ANGLE_TOLERANCE):
 			print "l"
 			print zumy_angle
@@ -166,21 +175,21 @@ def fixDirection(game):
 
 	desired_direction = game.hero.getDirection()
 	if desired_direction == direction.NORTH:
-		desired_angle = 0
+		desired_angle = NORTH_ANGLE
 	if desired_direction == direction.EAST:
-		desired_angle = 90
+		desired_angle = EAST_ANGLE
 	if desired_direction == direction.SOUTH:
-		desired_angle = 180
+		desired_angle = SOUTH_ANGLE
 	if desired_direction == direction.WEST:
-		desired_angle = 270
+		desired_angle = WEST_ANGLE
 
 	if angleDif(desired_angle,initial_angle) < ANGLE_TOLERANCE:
 		return
 
 	initial_dif = angleDif(desired_angle,initial_angle)
-	twist.angular.z = -ROT/10.0
+	twist.angular.z = RIGHT_TURN*AJUSTMENT_FACTOR
 
-	for i in xrange(20):
+	for i in xrange(NUM_TIMES_TRY_ADJUSTMENT):
 		print "*fixing direction from " + str(zumy_angle) + "to" + str(desired_angle)
 		print angleDif(desired_angle,zumy_angle)
 		action_publisher.publish(twist)
@@ -227,11 +236,11 @@ def getZumyDirectionCamera(game):
 	while zumy_angle == None:
 		rate.sleep()
 
-	if zumy_angle > (360 - 45) or zumy_angle < (0 + 45):
+	if zumy_angle > (NORTH_ANGLE+360 - 45) or zumy_angle < (NORTH_ANGLE + 45):
 		return direction.NORTH
-	elif zumy_angle > (90 - 45) and zumy_angle < (90 + 45):
+	elif zumy_angle > (EAST_ANGLE - 45) and zumy_angle < (EAST_ANGLE + 45):
 		return direction.EAST
-	elif zumy_angle > (180 - 45) and zumy_angle < (180 + 45):
+	elif zumy_angle > (SOUTH_ANGLE - 45) and zumy_angle < (SOUTH_ANGLE + 45):
 		return direction.SOUTH
 	else:
 		return direction.WEST

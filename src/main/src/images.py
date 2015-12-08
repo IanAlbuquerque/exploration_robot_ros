@@ -26,7 +26,6 @@ def readImage(image_path):
 	return None
 
 def updateLastPlot(image):
-
 	last_imshow.set_data(image)
 	plt.draw()
 	

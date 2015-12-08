@@ -13,6 +13,7 @@ def createPlot(image):
 	return figure, axe
 
 def plotImage(image,should_block_image=True):
+	print "HEYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 	plt.close()
 	createPlot(image)
 	plt.show(block = should_block_image)
@@ -26,7 +27,8 @@ def readImage(image_path):
 	return None
 
 def updateLastPlot(image):
-
+	global last_imshow
+	print "PLOTTTING"
 	last_imshow.set_data(image)
 	plt.draw()
 	

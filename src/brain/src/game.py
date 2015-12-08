@@ -48,8 +48,11 @@ class Game:
 		else:
 			hero_facing_color = [0.5,0.7,0.7]
 
-		image[hero_position.y,hero_position.x] = hero_color
-		image[hero_next_cell.y,hero_next_cell.x] = hero_facing_color
+		try:
+			image[hero_position.y,hero_position.x] = hero_color
+			image[hero_next_cell.y,hero_next_cell.x] = hero_facing_color
+		except IndexError:
+			a=1
 
 		list_not_known_positions = self.known_cells.toList(False)
 
@@ -58,7 +61,10 @@ class Game:
 			image[y,x] /= 2.0
 
 		if self.goal_position != None:
-			image[self.goal_position.y,self.goal_position.x] = [0.8,0.4,0.1]
+			try:
+				image[self.goal_position.y,self.goal_position.x] = [0.8,0.4,0.1]
+			except IndexError:
+				a=1
 
 		return image
 

@@ -31,6 +31,11 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 	zumy_interface.fixDirection(game)
 
 	while(recalculate_route):
+
+		if show_results:
+			game_image = game.toImage()
+			images.updateLastPlot(game_image)
+
 		recalculate_route = False
 
 		print "actions = "
@@ -49,12 +54,12 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 					print "Position wrong"
 					game.setHeroPosition(zumy_cam_pos)
 
+					recalculate_route = True
+
+
 					if show_results:
 						game_image = game.toImage()
 						images.updateLastPlot(game_image)
-
-					recalculate_route = True
-
 				# if zumy_cam_dir != zumy_brain_dir:
 				# 	print "Direction wrong"
 				# 	game.setHeroDirection(zumy_cam_dir)
@@ -68,8 +73,6 @@ def run(game,timestep_in_seconds=0.001,show_results=True):
 				zumy_interface.fixDirection(game)
 
 				sensor_readings = game.readSensors()
-
-
 
 				game.ackSensor(sensor_readings)
 
