@@ -32,6 +32,13 @@ def getZumyPositionFromGs(base_g, zumy_g):
 
     return np.dot(base_g_inv,zumy_g[0:4,3])
 
+def getZumyPositionFromArrays(zumy_arrays, base_arrays):
+    zumy_g = gFromArrays(zumy_arrays[0], zumy_arrays[1])
+    base_g = gFromArrays(base_arrays[0], base_arrays[1])
+
+    return getZumyPositionFromGs(base_g, zumy_g)
+
+
 def getZumyPositionFromAlvarMarkers(zumy_ar_tag, base_ar_tag, alvarMarkers):
     for marker in alvarMarkers.markers:
         if marker.id == zumy_ar_tag:
